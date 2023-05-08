@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const navigationOptions = [
     { id: 1, name: 'Home', path: '/' },
@@ -8,6 +9,7 @@ const navigationOptions = [
 ]
 
 function NavBar() {
+    const { user, logout } = useAuth();
     return (
         <AppBar sx={{
             display: 'flex',
@@ -41,17 +43,17 @@ function NavBar() {
                             margin: 2,
                             color: 'white',
                         }}
-                        component={'a'}
-                        href={navOption.path}
                     >
-                        {navOption.name}
+                        <Link
+                            to={navOption.path}>{navOption.name}</Link>
                     </Typography>
                 ))
                 }
             </Box>
             <div>
                 <Link to={'/login'}>Log In</Link>
-                <Link style={{ margin: 15 }} to={'/sign-up'}>Sign Up</Link>
+                {!user ? <Link style={{ margin: 15 }} to={'/sign-up'}>Sign Up</Link> :
+                    <Button style={{ margin: 15 }} onClick={() => logout()}>Log Out</Button>}
             </div>
         </AppBar>
     )
