@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Typography } from '@mui/material'
+import { AppBar, Box, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -51,9 +51,26 @@ function NavBar() {
                 }
             </Box>
             <div>
-                <Link to={'/login'}>Log In</Link>
-                {!user ? <Link style={{ margin: 15 }} to={'/sign-up'}>Sign Up</Link> :
-                    <Button style={{ margin: 15 }} onClick={() => logout()}>Log Out</Button>}
+                <Link style={{
+                    color: `#2196F3`,
+                    border: `1px solid grey`,
+                    padding: 7,
+                    borderRadius: 5
+                }} to={'/login'}>Log In</Link>
+                {!user ?
+                    <Link
+                        style={{ margin: 15 }}
+                        to={'/sign-up'}>Sign Up</Link> :
+                    <Link
+                        style={{
+                            margin: 15,
+                            color: `#f44336`,
+                            border: `1px solid grey`,
+                            padding: 7,
+                            borderRadius: 5
+                        }}
+                        onClick={() => logout()}
+                        to={'/logout'}>Log Out</Link>}
             </div>
         </AppBar>
     )
