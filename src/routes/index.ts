@@ -2,6 +2,7 @@ import { lazy } from 'react';
 
 const CaseListComponent = lazy(() => import('../pages/cars/CarList'));
 const SignUpComponent = lazy(() => import('../pages/auth/SignUp'));
+const HomeComponent = lazy(() => import('../pages/home/index'));
 
 export interface CarBookingRoutes {
     id: number;
@@ -11,6 +12,12 @@ export interface CarBookingRoutes {
 }
 
 const routes: CarBookingRoutes[] = [
+    {
+        id: 2,
+        path: '/',
+        component: HomeComponent,
+        exact: true,
+    },
     {
         id: 1,
         path: '/cars',
