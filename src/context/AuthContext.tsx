@@ -1,8 +1,9 @@
-import { ReactNode, createContext, useCallback, useContext, useState } from "react";
-import { login } from "../services/AuthService";
+import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from "react";
+import { getSession, login } from "../services/AuthService";
 import { IUser } from "../types/Auth";
 import { useNavigate } from "react-router-dom";
 import Loading from "../reusable/Loading";
+import { UserService } from "../services/UserService";
 
 interface IAuthContext {
     user: IUser | undefined;
@@ -17,6 +18,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const getUserFromSession = async () => {
+            const sessionPresent = getSession()
+            if (!sessionPresent) {
+                return null
+            }
+            const user = (await UserService.getUser()).data;
+            setUser(user)
+        }
+        getUserFromSession()
+    }, [])
+
     const logIn = useCallback(async (creds: IUser) => {
         console.log(`creds from useCallBack:::`, creds)
         setIsLoading(true)
@@ -26,6 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setUser(user)
         }
         setIsLoading(false)
+        navigate('/')
     }, [])
 
     const logout = useCallback(() => {
