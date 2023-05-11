@@ -8,10 +8,13 @@ const LogInComponent = lazy(() => import('./LogIn'))
 
 function Entry() {
     const { user } = useAuth()
-    console.log(`user :::`, user)
     return (
         <Suspense fallback={<Loading />}>
-            {user ? <AuthenticatedAppComponent /> : <LogInComponent />}
+            {
+                user ?
+                    <AuthenticatedAppComponent />
+                    : <LogInComponent />
+            }
         </Suspense>
     )
 }
