@@ -1,17 +1,10 @@
 import './App.css'
-import NavBar from './containers/NavBar'
-import Content from './containers/Content'
-import { BrowserRouter } from 'react-router-dom'
+import Entry from './pages/auth/Entry'
 
 function App() {
 
   return (
-    <>
-      <BrowserRouter>
-        <NavBar />
-        <Content />
-      </BrowserRouter>
-    </>
+    <Entry />
   )
 }
 

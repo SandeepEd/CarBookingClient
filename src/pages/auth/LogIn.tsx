@@ -1,11 +1,12 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
 
 function LogIn() {
-
+    const { logIn } = useAuth()
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data: any) => {
-        console.log(data)
+    const onSubmit = async (data: any) => {
+        logIn(data)
     };
 
     return (
@@ -14,6 +15,7 @@ function LogIn() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                width: `100%`,
             }}
         >
             <Typography component="h1" variant="h5">
