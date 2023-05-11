@@ -11,7 +11,7 @@ export class CarListService {
 
 export function useGetCarsList(): QueryObserverResult<ICar[]> {
     return useQuery({
-        queryKey: 'cars',
         queryFn: () => CarListService.getCarsList().then(res => res.data),
+        queryKey: [`cars`],
     });
 }
