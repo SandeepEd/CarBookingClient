@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const CaseListComponent = lazy(() => import('../pages/cars/CarList'));
+const CarListComponent = lazy(() => import('../pages/cars/CarList'));
 const SignUpComponent = lazy(() => import('../pages/auth/SignUp'));
 const HomeComponent = lazy(() => import('../pages/home/index'));
 
@@ -21,7 +21,7 @@ const routes: CarBookingRoutes[] = [
     {
         id: 1,
         path: '/cars',
-        component: CaseListComponent,
+        component: CarListComponent,
         exact: true,
     },
     {

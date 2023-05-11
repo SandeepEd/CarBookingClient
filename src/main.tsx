@@ -8,8 +8,16 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import Entry from './pages/auth/Entry.tsx';
 import { BrowserRouter } from 'react-router-dom';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 1000 * 60 * 60,
+      staleTime: 1000 * 60 * 60,
+      useErrorBoundary: true,
+    },
+  },
+})
 
-const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
