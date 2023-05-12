@@ -4,6 +4,7 @@ import { IUser } from "../types/Auth";
 import { useNavigate } from "react-router-dom";
 import Loading from "../reusable/Loading";
 import { UserService } from "../services/UserService";
+import { useNotification } from "./NotificationProvider";
 
 interface IAuthContext {
     user: IUser | undefined;
@@ -13,6 +14,8 @@ interface IAuthContext {
 const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+
+    const { createNotification } = useNotification();
 
     const [user, setUser] = useState<IUser | undefined>(undefined)
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -32,14 +35,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const logIn = useCallback(async (creds: IUser) => {
         console.log(`creds from useCallBack:::`, creds)
-        setIsLoading(true)
-        const user = await login(creds)
-        console.log(`data :::`, user)
-        if (user) {
-            setUser(user)
+        try {
+            setIsLoading(true)
+            const user = await login(creds)
+            console.log(`data :::`, user)
+            if (user) {
+                setUser(user)
+            }
+            setIsLoading(false)
+            navigate('/')
+        } catch (e: any) {
+            setIsLoading(false)
+            createNotification({
+                message: e.response.data.message || e.message,
+                type: 'error'
+            })
         }
-        setIsLoading(false)
-        navigate('/')
     }, [])
 
     const logout = useCallback(() => {

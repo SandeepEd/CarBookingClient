@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import Entry from './pages/auth/Entry.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from './containers/ErrorBoundary.tsx';
+import { NotificationProvider } from './context/NotificationProvider.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,9 +25,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <AuthProvider>
-            <Entry />
-          </AuthProvider>
+          <NotificationProvider>
+            <AuthProvider>
+              <Entry />
+            </AuthProvider>
+          </NotificationProvider>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

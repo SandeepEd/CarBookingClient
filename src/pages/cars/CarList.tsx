@@ -4,12 +4,11 @@ import { useGetCarsList } from './hooks'
 function CarList() {
 
     const { data: carsList, isLoading } = useGetCarsList()
-    console.log(`cars from something :::`, carsList)
     return (
         <div style={{ display: `flex`, width: `100%` }}>
             {isLoading && <h3>Loading...</h3>}
             {carsList?.map(car =>
-                <Card sx={{ maxWidth: 345, minWidth: 300, margin: 2, flexWrap: `wrap` }}>
+                <Card key={car.id} sx={{ maxWidth: 345, minWidth: 300, margin: 2, flexWrap: `wrap` }}>
                     <CardMedia
                         component="img"
                         alt={car.name}
