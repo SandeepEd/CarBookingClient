@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import { AddCarProps } from '../../types/Car';
 import { useAddNewCar } from '../../services/CarBooking';
 import { useNotification } from '../../context/NotificationProvider';
+import { useNavigate } from 'react-router-dom';
 
 export function AddCar() {
 
     const { register, handleSubmit } = useForm<AddCarProps>();
     const { mutateAsync } = useAddNewCar()
     const { createNotification } = useNotification();
+    const navigate = useNavigate();
 
     const onSubmit = async (data: AddCarProps) => {
         try {
@@ -17,6 +19,8 @@ export function AddCar() {
                 message: 'Car Added Successfully',
                 type: 'success'
             })
+            navigate('/cars')
+
         } catch (e: any) {
             console.log(`error:::`, e)
             createNotification({
