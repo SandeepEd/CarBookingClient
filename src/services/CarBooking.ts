@@ -5,7 +5,7 @@ import client from "../utils/http";
 export class CarService {
 
     static addNewCar(data: AddCarProps) {
-        return client.post('/cars', data)
+        return client.post('/cars/add-car', data)
     }
 }
 
