@@ -4,3 +4,9 @@ export interface ICar {
     price: number;
     imageSrc: string;
 }
+
+export interface AddCarProps {
+    name: string;
+    price: number;
+    imageSrc: string;
+}
