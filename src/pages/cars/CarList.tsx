@@ -5,10 +5,10 @@ function CarList() {
 
     const { data: carsList, isLoading } = useGetCarsList()
     return (
-        <div style={{ display: `flex`, width: `100%` }}>
+        <div style={{ display: `flex`, width: `100%`, flexWrap: `wrap` }}>
             {isLoading && <h3>Loading...</h3>}
             {carsList?.map(car =>
-                <Card key={car.id} sx={{ maxWidth: 345, minWidth: 300, margin: 2, flexWrap: `wrap` }}>
+                <Card key={car.id} sx={{ maxWidth: 345, minWidth: 300, margin: 2 }}>
                     <CardMedia
                         component="img"
                         alt={car.name}
