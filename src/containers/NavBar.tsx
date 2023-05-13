@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 const navigationOptions = [
     { id: 1, name: 'Home', path: '/' },
     { id: 2, name: 'Cars', path: '/cars' },
-    { id: 3, name: 'About', path: '/about' },
+    { id: 4, name: 'Add Car', path: '/add-car' },
 ]
 
 function NavBar() {
