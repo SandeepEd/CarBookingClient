@@ -1,76 +1,81 @@
 import { Card, CardMedia, Container, Typography, TextField, Grid } from '@mui/material';
-import { useState } from 'react';
+import { useAddCheckoutItem, useGetCheckoutItems } from '../../services/CheckOut';
 
 function CheckOut() {
-    const [quantity, setQuantity] = useState(1);
+    const { mutateAsync } = useAddCheckoutItem();
+    const checkoutItems = useGetCheckoutItems().data;
 
-    const handleQuantityChange = (event: any) => {
-        setQuantity(event.target.value);
+    const handleQuantityChange = (carId: number) => {
+        mutateAsync(carId);
     };
 
     return (
         <Container>
-            <Card
-                sx={{
-                    position: `relative`,
-                    height: 100,
-                    display: 'flex',
-                    border: `1px solid black`,
-                }}
-            >
-                <Grid container
+            {checkoutItems?.map((item) =>
+                <Card
                     sx={{
+                        m: 2,
                         position: `relative`,
-                        alignContent: `center`,
-                        alignItems: `center`,
-                    }}>
-                    <Grid item xs={4}>
-                        <CardMedia
-                            component={'img'}
-                            alt={`car name`}
-                            sx={{
-                                position: `relative`,
-                                objectFit: `contain`,
-                            }}
-                            src={'https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2017/11/Tesla-Roadster-103.jpg'}
-                        />
+                        height: 100,
+                        display: 'flex',
+                        border: `1px solid black`,
+                    }}
+                >
+                    <Grid container
+                        sx={{
+                            position: `relative`,
+                            alignContent: `center`,
+                            alignItems: `center`,
+                        }}>
+                        <Grid item xs={4}>
+                            <CardMedia
+                                component={'img'}
+                                alt={`car name`}
+                                sx={{
+                                    position: `relative`,
+                                    objectFit: `contain`,
+                                }}
+                                src={item?.car?.imageSrc}
+                            />
+                        </Grid>
+                        <Grid item xs={4}
+                        >
+                            <Typography
+                                sx={{
+                                    marginLeft: 2,
+                                }}
+                                variant='h4'>
+                                {item?.car?.name}
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    marginLeft: 2,
+                                }}
+                                variant='h6' color="text.secondary">
+                                {item?.car?.price}$
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                sx={{
+                                    float: `right`,
+                                    mr: 2
+                                }}
+                                id="outlined-number"
+                                label="Quantity"
+                                type="number"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                                value={item.quantity}
+                                onChange={() => handleQuantityChange(item.carId)}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}
-                    >
-                        <Typography
-                            sx={{
-                                marginLeft: 2,
-                            }}
-                            variant='h4'>
-                            Tesla
-                        </Typography>
-                        <Typography
-                            sx={{
-                                marginLeft: 2,
-                            }}
-                            variant='h6' color="text.secondary">
-                            Price: $100000
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField
-                            sx={{
-                                float: `right`,
-                                mr: 2
-                            }}
-                            id="outlined-number"
-                            label="Quantity"
-                            type="number"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="outlined"
-                            value={quantity}
-                            onChange={handleQuantityChange}
-                        />
-                    </Grid>
-                </Grid>
-            </Card>
+                </Card>
+            )}
+
         </Container>
     )
 }

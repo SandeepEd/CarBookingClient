@@ -1,9 +1,28 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { useGetCarsList } from './hooks'
+import { useAddCheckoutItem } from '../../services/CheckOut'
+import { useNotification } from '../../context/NotificationProvider';
 
 function CarList() {
 
     const { data: carsList, isLoading } = useGetCarsList()
+    const { mutateAsync } = useAddCheckoutItem();
+    const { createNotification } = useNotification();
+
+    const onAddToCart = async (carId: number) => {
+        try {
+            await mutateAsync(carId)
+            createNotification({
+                message: 'Car Added Successfully',
+                type: 'success'
+            })
+        } catch (e: any) {
+            createNotification({
+                message: e.response.data.message || e.message,
+                type: 'error'
+            })
+        }
+    }
     return (
         <div style={{ display: `flex`, width: `100%`, flexWrap: `wrap` }}>
             {isLoading && <h3>Loading...</h3>}
@@ -20,12 +39,12 @@ function CarList() {
                             {car.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            {car.price}
+                            {car.price} $
                         </Typography>
                     </CardContent>
                     <CardActions>
                         <Button size="small">Details</Button>
-                        <Button size="small">Book</Button>
+                        <Button onClick={() => onAddToCart(car.id)} size="small">Book</Button>
                     </CardActions>
                 </Card>
             )}
