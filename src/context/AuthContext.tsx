@@ -34,7 +34,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, [])
 
     const logIn = useCallback(async (creds: IUser) => {
-        console.log(`creds from useCallBack:::`, creds)
         try {
             setIsLoading(true)
             const user = await login(creds)
