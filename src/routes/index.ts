@@ -4,6 +4,7 @@ const CarListComponent = lazy(() => import('../pages/cars/CarList'));
 const SignUpComponent = lazy(() => import('../pages/auth/SignUp'));
 const HomeComponent = lazy(() => import('../pages/home/index'));
 const AddCarComponent = lazy(() => import('../pages/addCar/AddCar'));
+const checkoutComponent = lazy(() => import('../pages/checkOut/CheckOut'));
 
 export interface CarBookingRoutes {
     id: number;
@@ -32,9 +33,15 @@ const routes: CarBookingRoutes[] = [
         exact: true,
     },
     {
-        id: 3,
+        id: 4,
         path: '/sign-up',
         component: SignUpComponent,
+        exact: true,
+    },
+    {
+        id: 5,
+        path: '/check-out',
+        component: checkoutComponent,
         exact: true,
     },
 ];
