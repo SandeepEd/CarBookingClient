@@ -45,18 +45,14 @@ function NavBar() {
                         }}
                     >
                         <Link
+                            style={{ color: `#4A90E2` }}
                             to={navOption.path}>{navOption.name}</Link>
                     </Typography>
                 ))
                 }
             </Box>
             <div>
-                <Link style={{
-                    color: `#2196F3`,
-                    border: `1px solid grey`,
-                    padding: 7,
-                    borderRadius: 5
-                }} to={'/login'}>Log In</Link>
+                <Link style={{ margin: 15, color: `#33CC33` }} to={'/check-out'}>Check Out</Link>
                 {!user ?
                     <Link
                         style={{ margin: 15 }}
@@ -65,9 +61,6 @@ function NavBar() {
                         style={{
                             margin: 15,
                             color: `#f44336`,
-                            border: `1px solid grey`,
-                            padding: 7,
-                            borderRadius: 5
                         }}
                         onClick={() => logout()}
                         to={'/logout'}>Log Out</Link>}
